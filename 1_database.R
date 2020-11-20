@@ -1,7 +1,7 @@
 ## analisi statistica materiali Arqua':
 
 # set working directory:
-setwd("D:/documenti_marta/lavoro/CV/online_CV/CV_pictures/azraq")
+setwd("...")
 getwd()
 
 # import data
@@ -19,18 +19,17 @@ which(is.na(data_xrf))
 which(is.na(data_fabric))
 which(data_xrf == "")
 
-## Combine data_samples with data_xrf and data_xrd
+## Combine data_samples with data_xrf
 identical(data_fabric$sample_id, data_xrf$sample_id)
 data <- left_join(data_fabric, data_xrf,  by = "sample_id")%>% 
   mutate(group = as.factor(group))
 length(new_data$sample_id)
 
+## Clean dataset
 data <- subset(data, group != "E" & group != "outliers")
-
 new_data <- data %>%
   mutate(group = replace(as.character(group), group == "A1", "A"),
          group = replace(as.character(group), group == "A2", "A"),         
          group = replace(as.character(group), group == "D1", "D"),
          group = replace(as.character(group), group == "D2", "D")
          )
-
