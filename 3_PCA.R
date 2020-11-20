@@ -1,6 +1,3 @@
-#########################################################################################
-#########################################################################################
-# ANALYSIS
 # Principal Component Analysis (PCA):
 # log10 transformation
 log10_data <-   log10(new_data[,3:17]) 
@@ -13,8 +10,7 @@ pca <- prcomp(log10_data[,3:17], center = TRUE, scale = FALSE)
 
 # Analysis of results:
 fviz_eig(pca, addlabels = TRUE, ylim = c(0, 57))
-round(get_eigenvalue(pca)[1:4,],2)
-# first 4 principal components explain 89% of total variation in the dataset
+round(get_eigenvalue(pca)[1:4,],2)   # first 4 principal components explain 89% of total variation in the dataset
 
 # Most important (or, contributing) variables highlighted
 # Biplot:
@@ -39,10 +35,8 @@ fviz_pca_ind(pca, habillage=new_data$group,
              pointshape = 16) + 
   scale_color_brewer(palette="Paired",name = "Group")
 
-
-
-
-# new data set obtained by the pca, with pc1, pc2, pc3, pc4:
+#########################################################################################
+# new data set obtained through pca (pc1, pc2, pc3, pc4):
 pca_df <- data.frame(pc1 = pca$x[,1], pc2 = pca$x[,2], pc3 = pca$x[,3],
                      group = log10_data$group)
 
@@ -83,9 +77,6 @@ p1 <- pca12 + theme(
   axis.title = element_text(color = "white")
 )
 
-p
-p1
-
 p2 <- pca13 + theme(
   # get rid of panel grids
   panel.grid.major = element_blank(),
@@ -120,5 +111,7 @@ p3 <- pca23 + theme(
   axis.title = element_text(color = "white")
 )
 
+p
+p1
 p2
 p3
