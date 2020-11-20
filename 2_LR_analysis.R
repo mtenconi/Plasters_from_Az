@@ -1,5 +1,4 @@
-# Analysis:
-# Linear regression:
+# Linear regression: compare plasters pf groups B and C
 data <- subset(new_data, group == "B" | group == "C")
 
 LR <- lm(S ~ Ca, data)
@@ -10,6 +9,7 @@ p <- ggplot(data, aes(x = S, y = Ca)) +
   geom_smooth(method = "lm", se = FALSE, color = "white")+
   ggtitle("Linear Regression")+ 
   annotate("text", x=21, y= 2, label = "R^2=0.93", color = "white")
+
 p + theme(
     # get rid of panel grids
     panel.grid.major = element_blank(),
@@ -32,6 +32,7 @@ p2 <- ggplot(data, aes(x = S, y = Ca)) +
   geom_smooth(method = "lm", se = FALSE, color = "black")+
   ggtitle("Linear Regression")+ 
   annotate("text", x=21, y= 2, label = "R^2=0.93")
+
 p2 + theme(
       panel.background = element_rect(fill = "white",
                                       colour = "white"),
@@ -41,6 +42,4 @@ p2 + theme(
                                linetype = 'solid',
                                color = "black"),
       legend.key = element_rect(colour = NA, fill = NA)
-)  
-  
-  
+) 
