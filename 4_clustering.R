@@ -1,4 +1,4 @@
-# Assess clustering tendency: evaluate whether the dataset contains meaningful clusters or not 
+# Assess clustering tendency: evaluate whether the dataset contains meaningful clusters or not
 #Hopkins' statistic & visual approach
 hc_data <- new_data[,3:17]   
 
@@ -8,7 +8,6 @@ set.seed(123)
 hc_data %>%
   scale() %>%     # Scale variables
   get_clust_tendency(n = 35, gradient = gradient.color) # the dataset is clusterable (H value = 0.75 )
-
 
 #########################################################################################
 # Determining the optimal number of clusters
@@ -21,16 +20,16 @@ rownames(hc_data) <- new_data$sample_id
 # Elbow method
 fviz_nbclust(hc_data, kmeans, method = "wss") +
   geom_vline(xintercept = 4, linetype = 2)+ 
-  labs(subtitle = "Elbow method")
+  labs(subtitle = "Elbow method")   # Elbow method: 4 clusters solution suggested
 
 # Silhouette method
 fviz_nbclust(hc_data, kmeans, method = "silhouette")+
-  labs(subtitle = "Silhouette method")
+  labs(subtitle = "Silhouette method")  # Silhouette method: 2 clusters solution suggested
 
 # Gap statistic
 set.seed(123)
 gap_stat <- clusGap(hc_data, FUN = kmeans, nstart = 30, K.max = 10, B = 250)
-fviz_gap_stat(gap_stat) + theme_minimal() + ggtitle("fviz_gap_stat: Gap Statistic") 
+fviz_gap_stat(gap_stat) + theme_minimal() + ggtitle("fviz_gap_stat: Gap Statistic")   # Gap statistic method: 1 cluster solution suggested
 
 # NbClust()
 set.seed(123)
@@ -38,28 +37,22 @@ res.nbclust <- hc_data %>%
   NbClust(distance = "euclidean",
           min.nc = 2, max.nc = 10, 
           method = "kmeans", index ="all") 
-fviz_nbclust(res.nbclust, ggtheme = theme_minimal())
-
-# Elbow method: 4 clusters solution suggested
-# Silhouette method: 2 clusters solution suggested
-# Gap statistic method: 1 cluster solution suggested
-# NbClust, method "kmeans": 2 clusters solution suggested
+fviz_nbclust(res.nbclust, ggtheme = theme_minimal())  # NbClust, method "kmeans": 2 clusters solution suggested
 
 ###########################################################################################
 # K-means clustering: 
 set.seed(123)
 km.res <- kmeans(hc_data, 2, nstart = 30)   # k = 2
 
-# Visualize
+# visualization
 fviz_cluster(km.res, data = hc_data,
              ellipse.type = "convex",
              palette = "jco",
              ggtheme = theme_minimal())
 
-# comparison of fabrics with kmean clusters:
+# comparison of kmean clusters with fabrics:
 new_data$group[which(km.res$cluster == 1)]
 new_data$group[which(km.res$cluster == 2)]
-
 
 #######################################
 # Examine different values of k:
@@ -88,12 +81,8 @@ new_data$group[which(km4$cluster == 2)]
 new_data$group[which(km4$cluster == 3)]
 new_data$group[which(km4$cluster == 4)]
 
-
 ###########################################################################################
 # Hierarchical clustering
-# Compute hierarchical clustering
-# Hierarchical clustering
-# Compute hierarchical clustering
 hc_data <- new_data[,3:17]
 rownames(hc_data) <- new_data$sample_id
 
