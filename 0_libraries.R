@@ -1,12 +1,10 @@
-## analisi statistica materiali Arqua':
+## analysis plasters from Azraq:
 # libraries:
-
 # 1_database
 library(tidyverse)
 
 # 2_exploratory analysis
 library(ggdark)
-
 library(gridExtra)
 library(car)
 library(gplots)
